@@ -1,0 +1,6 @@
+Copyright (c) 2016, Michael Müller
+See lib/SOURCE.txt for authors of included libraries
+
+This app as a whole is available under the terms of the AGPLv3 license, see lib/odf/LICENSE.txt.
+
+Additionaly, you are allowed to use all parts that were specifically written for this app (i.e. everything except the included libraries, though some of these libraries are also available under other licenses) under the terms of the Apache License v2, see lib/pdf/LICENSE.txt.

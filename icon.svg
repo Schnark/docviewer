@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+	<g>
+		<circle cx="30" cy="30" r="29" fill="#aaf" />
+		<path d="M 13,15 C 23,15 23,15 29,19 L 29,43 C 23,40 23,40 13,40 Z" fill="#fff" />
+		<path d="M 47,15 C 37,15 37,15 31,19 L 31,43 C 37,40 37,40 47,40 Z" fill="#fff" />
+		<path d="M 10,18 L 10,43 C 20,43 20,43 29,46 Q 30,46.5 31,46 C 40,43 40,43 50,43 L 50,18" stroke="#fff" stroke-width="2" fill="none" />
+		<text x="15" y="38" font-size="4" fill="black" font-family="sans-serif" font-weight="bold">EPUB</text>
+		<path d="M 21,27 L 24,24 L 21,21 L 15,27 L 21,33 L 28,26" stroke="#8b2" stroke-width="2" fill="none" />
+		<text x="32" y="23" font-size="4" fill="black" font-family="sans-serif" font-weight="bold">ODF</text>
+		<path d="M 39,18 C 40.3,18.7 41.7,20 42.3,21.3 C 43,20 44.3,18.7 45.7,18 C 42.3,20.7 42.7,20.7 39,18" stroke="#00f" stroke-width="0.5" fill="#00f" />
+		<path d="M 35,25 C 37,26 39,28 40,30 C 41,28 43,26 45,25 C 40,29 40,29 35,25" stroke="#000" stroke-width="0.5" fill="#000" />
+		<text x="38" y="35" font-size="4" fill="black" font-family="sans-serif" font-weight="bold">PDF</text>
+		<path d="M 34.148927,33.019451 C 34.9037,34.24185 38.686611,38.923179 38.985663,37.46135 C 39.241337,36.211565 33.997795,38.493315 33.04568,39.185762 C 31.959882,39.975433 31.591575,41.833859 33.48987,40.172851 C 35.069213,38.790926 35.073839,30.072395 34.180832,31.733241 C 33.762794,32.510724 34.198282,33.11816 34.148927,33.019451 z" stroke="#f00" stroke-width="0.5" fill="none" />
+	</g>
+</svg>

@@ -1,0 +1,152 @@
+diff -ru pdf.js-gh-pages/web/viewer.html pdf/viewer.html
+--- pdf.js-gh-pages/web/viewer.html
++++ pdf/viewer.html
+@@ -1,4 +1,4 @@
+-﻿<!DOCTYPE html>
++<!DOCTYPE html>
+ <!--
+ Copyright 2012 Mozilla Foundation
+ 
+@@ -38,7 +38,7 @@
+ <!-- This snippet is used in production (included from viewer.html) -->
+ <link rel="resource" type="application/l10n" href="locale/locale.properties">
+ <script src="l10n.js"></script>
+-<script src="../build/pdf.js"></script>
++<script src="pdf.js"></script>
+ 
+ 
+ 
+@@ -95,7 +95,7 @@
+         </div>  <!-- findbar -->
+ 
+         <div id="secondaryToolbar" class="secondaryToolbar hidden doorHangerRight">
+-          <div id="secondaryToolbarButtonContainer">
++          <div id="secondaryToolbarButtonContainer"><div style="display:none;">
+             <button id="secondaryPresentationMode" class="secondaryToolbarButton presentationMode visibleLargeView" title="Switch to Presentation Mode" tabindex="51" data-l10n-id="presentation_mode">
+               <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
+             </button>
+@@ -116,7 +116,7 @@
+               <span data-l10n-id="bookmark_label">Current View</span>
+             </a>
+ 
+-            <div class="horizontalToolbarSeparator visibleLargeView"></div>
++            </div><div class="horizontalToolbarSeparator visibleLargeView"></div>
+ 
+             <button id="firstPage" class="secondaryToolbarButton firstPage" title="Go to First Page" tabindex="56" data-l10n-id="first_page">
+               <span data-l10n-id="first_page_label">Go to First Page</span>
+@@ -135,13 +135,13 @@
+             </button>
+ 
+             <div class="horizontalToolbarSeparator"></div>
+-
++<div style="display:none;">
+             <button id="toggleHandTool" class="secondaryToolbarButton handTool" title="Enable hand tool" tabindex="60" data-l10n-id="hand_tool_enable">
+               <span data-l10n-id="hand_tool_enable_label">Enable hand tool</span>
+             </button>
+ 
+             <div class="horizontalToolbarSeparator"></div>
+-
++</div>
+             <button id="documentProperties" class="secondaryToolbarButton documentProperties" title="Document Properties…" tabindex="61" data-l10n-id="document_properties">
+               <span data-l10n-id="document_properties_label">Document Properties…</span>
+             </button>
+@@ -172,7 +172,7 @@
+                 <input type="number" id="pageNumber" class="toolbarField pageNumber" value="1" size="4" min="1" tabindex="15">
+                 <span id="numPages" class="toolbarLabel"></span>
+               </div>
+-              <div id="toolbarViewerRight">
++              <div id="toolbarViewerRight"><div style="display:none">
+                 <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="31" data-l10n-id="presentation_mode">
+                   <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
+                 </button>
+@@ -193,10 +193,14 @@
+                 </a>
+ 
+                 <div class="verticalToolbarSeparator hiddenSmallView"></div>
++                </div>
+ 
+                 <button id="secondaryToolbarToggle" class="toolbarButton" title="Tools" tabindex="36" data-l10n-id="tools">
+                   <span data-l10n-id="tools_label">Tools</span>
+                 </button>
++            <button id="button-close-document" class="toolbarButton findPrevious" title="Close">
++              <span>Close</span>
++            </button>
+               </div>
+               <div class="outerCenter">
+                 <div class="innerCenter" id="toolbarViewerMiddle">
+@@ -419,5 +423,6 @@
+ </div>
+ 
+   </body>
++<script src="../connect-iframe.js"></script>
+ </html>
+ 
+diff -ru pdf.js-gh-pages/web/viewer.js pdf/viewer.js
+--- pdf.js-gh-pages/web/viewer.js
++++ pdf/viewer.js
+@@ -16,8 +16,7 @@
+ 
+ 'use strict';
+ 
+-var DEFAULT_URL = 'compressed.tracemonkey-pldi-09.pdf';
+-
++var DEFAULT_URL = false;
+ 
+   var pdfjsWebLibs = {
+     pdfjsWebPDFJS: window.pdfjsDistBuildPdf
+@@ -7282,6 +7281,14 @@
+                   pdfAttachmentViewerLib, pdfFindControllerLib, pdfFindBarLib,
+                   domEventsLib, pdfjsLib) {
+ 
++window.openUrl = function (url) {
++	if (DEFAULT_URL === false) {
++		DEFAULT_URL = url;
++	} else {
++		webViewerOpenFileViaURL(url);
++	}
++};
++
+ var UNKNOWN_SCALE = uiUtilsLib.UNKNOWN_SCALE;
+ var DEFAULT_SCALE_VALUE = uiUtilsLib.DEFAULT_SCALE_VALUE;
+ var ProgressBar = uiUtilsLib.ProgressBar;
+@@ -7322,8 +7329,8 @@
+ 
+ function configure(PDFJS) {
+   PDFJS.imageResourcesPath = './images/';
+-  PDFJS.workerSrc = '../build/pdf.worker.js';
+-  PDFJS.cMapUrl = '../web/cmaps/';
++  PDFJS.workerSrc = './pdf.worker.js';
++  PDFJS.cMapUrl = './cmaps/';
+   PDFJS.cMapPacked = true;
+ }
+ 
+@@ -8353,7 +8360,7 @@
+ 
+ var HOSTED_VIEWER_ORIGINS = ['null',
+   'http://mozilla.github.io', 'https://mozilla.github.io'];
+-function validateFileURL(file) {
++function validateFileURL(file) {return;
+   try {
+     var viewerOrigin = new URL(window.location.href).origin || 'null';
+     if (HOSTED_VIEWER_ORIGINS.indexOf(viewerOrigin) >= 0) {
+@@ -8399,6 +8406,7 @@
+ }
+ 
+ function webViewerInitialized() {
++  DEFAULT_URL = DEFAULT_URL || '';
+   var queryString = document.location.search.substring(1);
+   var params = parseQueryString(queryString);
+   var file = 'file' in params ? params.file : DEFAULT_URL;
+ 
+diff -ru pdf.js-gh-pages/web/locale/de/viewer.properties pdf/locale/de/viewer.properties
+--- pdf.js-gh-pages/web/locale/de/viewer.properties
++++ pdf/locale/de/viewer.properties
+@@ -111,7 +111,7 @@
+ find_next.title=Nächstes Auftreten des Suchbegriffs finden
+ find_next_label=Weiter
+ find_highlight=Alle hervorheben
+-find_match_case_label=a↔A
++find_match_case_label=Groß-/Kleinschreibung beachten
+ find_reached_top=Anfang des Dokuments erreicht, fahre am Ende fort
+ find_reached_bottom=Ende des Dokuments erreicht, fahre am Anfang fort
+ find_not_found=Suchbegriff nicht gefunden

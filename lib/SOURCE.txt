@@ -1,0 +1,6 @@
+This directory contains three external libraries. For changes from the original see the included diffs, for license details the respective files in each sub-directory. The content from the "txt" folder and the file "connect-iframe.js" have been created for this app. The original sources for the external libraries are:
+
+epub: https://github.com/futurepress/epub.js/tree/master/reader
+odf: http://viewerjs.org/getit/
+pdf: https://github.com/mozilla/pdf.js/tree/gh-pages/web
+

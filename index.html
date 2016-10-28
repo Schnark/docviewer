@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title>Book reader</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div id="container">
+<p>
+<button>Open document</button>
+</p>
+<p>
+<h2>FAQ</h2>
+<dl>
+<dt>How do I open a document?</dt>
+<dd>There are two ways: Either you start your file manager, open the document there and choose this app as viewer. Or you press the button above and choose an app to select the document from. You'll need a file picker app to do so, I recommend <a href="https://marketplace.firefox.com/app/finder" target="_blank">Finder</a>.</dd>
+<dt>What formats are supported?</dt>
+<dd>You can open EPUB, PDF, Open Document (ODT for text, ODS for spreadsheets, ODP for presentations), and plain text files.</dd>
+<dt>How do I use the viewers?</dt>
+<dd>To view the documents this app includes different viewers that have been developed independendly. This means that each viewer will work a bit differently, but you will figure out how to navigate, zoom, etc.</dd>
+<dd>Note that the PDF viewer will show more tools when the screen is in landscape, and the ODF viewer shows its tools only after you tap the screen.</dd>
+<dt>Can I get the source?</dt>
+<dd>Yes! It is free software, you can download it from <a href="https://github.com/Schnark/docviewer" target="_blank">GitHub</a>, it is available under the <a href="http://www.gnu.org/licenses/agpl-3.0" target="_blank">AGPL</a> license and includes the following libraries:<ul>
+<li><a href="https://github.com/futurepress/epub.js" target="_blank">epub.js</a>, by FuturePress</li>
+<li><a href="https://github.com/mozilla/pdf.js" target="_blank">pdf.js</a>, by Mozilla Foundation</li>
+<li><a href="http://viewerjs.org/" target="_blank">viewerjs</a>, by KO GmbH</li>
+</ul>
+This software is provided 'as-is', without any express or implied warranty.</dd>
+</dl>
+</p>
+</div>
+<iframe id="iframe"></iframe><!--TODO use a sandboxed iframe, but without breaking everything-->
+<script src="app.js"></script>
+</body></html>

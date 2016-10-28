@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+<title>Reader</title>
+<style>
+html {
+	font-family: sans-serif;
+}
+
+.gallery img {
+	float: left;
+	width: 270px;
+	margin: 5px;
+	border: 1px solid black;
+}
+
+.gallery {
+	float: left;
+	width: 100%;
+	border: 1px solid black;
+}
+
+.clear {
+	clear: both;
+}
+
+button, .button {
+	font: inherit;
+	display: block;
+	width: 100%;
+	line-height: 2;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	border: none;
+	border-radius: 2px;
+	text-align: center;
+	background-image: linear-gradient(-45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 100%);
+	background-color: blue;
+	color: white;
+	text-decoration: none;
+	cursor: default;
+}
+</style>
+</head><body>
+<h1>Reader app for Firefox OS</h1>
+<nav>
+<!--<a href="#screenshots">Screenshots</a> – --><a href="#description">Description</a> – <a href="#install">Install</a>
+</nav>
+<!--<h2 id="screenshots">Screenshots</h2>
+<div class="gallery">
+<img src="screenshot.png">
+</div>
+<br class="clear">
+-->
+<h2 id="description">Description</h2>
+<p>
+This app allows you to read documents in different formats: EPUB, PDF, and ODF (ODT, ODS, and ODP).
+</p>
+
+<h2 id="install">Install</h2>
+<p>
+The online version allows to quickly test the app in any browser. Please note that the app was developed for mobile phones with Firefox OS, so the online version might have bugs.
+</p>
+<p>
+<a href="../index.html" class="button">Use online version</a>
+</p>
+<p>
+On devices with Firefox OS you can install the app and use it offline.
+</p>
+<p>
+<button id="install-button">Install app</button>
+</p>
+<script>
+document.getElementById('install-button').onclick = function () {
+	navigator.mozApps.installPackage('https://schnark.github.io/docviewer/github.manifest.webapp');
+};
+</script>
+</body></html>

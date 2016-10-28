@@ -1,0 +1,40 @@
+{
+	"name": "Reader",
+	"description": "Reader for various file types: EPUB, PDF and ODF (ODT, ODS, ODP)",
+	"size": 2290002,
+	"package_path": "https://schnark.github.io/docviewer/docviewer.zip",
+	"icons": {
+		"512": "/icon-512.png",
+		"128": "/icon-128.png"
+	},
+	"version": "1.0",
+	"developer": {
+		"name": "Michael Müller",
+		"url": "https://github.com/Schnark"
+	},
+	"default_locale": "en",
+	"activities": {
+		"open": {
+			"filters": {
+				"type": [
+					"application/epub+zip",
+					"application/pdf",
+					"application/vnd.oasis.opendocument.text",
+					"application/vnd.oasis.opendocument.spreadsheet",
+					"application/vnd.oasis.opendocument.presentation",
+					"text/plain",
+					"text/*",
+					""
+				]
+			},
+			"disposition": "window",
+			"returnValue": false,
+			"href": "/index.html"
+		}
+	},
+	"locales": {
+		"de": {
+			"name": "Leser"
+		}
+ 	}
+}

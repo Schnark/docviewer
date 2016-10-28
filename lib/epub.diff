@@ -1,0 +1,50 @@
+diff -ru epub.js-master/reader/index.html epub/index.html
+--- epub.js-master/reader/index.html
++++ epub/index.html
+@@ -16,21 +16,6 @@
+ 
+         <script src="js/libs/zip.min.js"></script>
+ 
+-        <script>
+-            "use strict";
+-
+-            document.onreadystatechange = function () {
+-              if (document.readyState == "complete") {
+-                EPUBJS.filePath = "js/libs/";
+-                EPUBJS.cssPath = window.location.href.replace(window.location.hash, '').replace('index.html', '') + "css/";
+-                // fileStorage.filePath = EPUBJS.filePath;
+-
+-                window.reader = ePubReader("moby-dick/");
+-              }
+-            };
+-
+-        </script>
+-
+         <!-- File Storage -->
+         <!-- <script src="js/libs/localforage.min.js"></script> -->
+ 
+@@ -94,8 +79,9 @@
+           </div>
+           <div id="title-controls">
+             <a id="bookmark" class="icon-bookmark-empty">Bookmark</a>
+-            <a id="setting" class="icon-cog">Settings</a>
+-            <a id="fullscreen" class="icon-resize-full">Fullscreen</a>
++            <a id="button-close-document">X</a>
++            <div style="display:none;"><a id="setting" class="icon-cog">Settings</a>
++            <a id="fullscreen" class="icon-resize-full">Fullscreen</a></div>
+           </div>
+         </div>
+ 
+@@ -119,4 +105,12 @@
+       </div>
+       <div class="overlay"></div>
+     </body>
++    <script>
++        window.openUrl = function (url) {
++            EPUBJS.filePath = "js/libs/";
++            EPUBJS.cssPath = "css/";
++            window.reader = ePubReader(url, {contained: true});
++        };
++    </script>
++    <script src="../connect-iframe.js"></script>
+ </html>

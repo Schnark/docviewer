@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="uft-8">
+<title>Text reader</title>
+<script>
+window.openUrl = function (url, title) {
+	document.getElementById('title').textContent = title;
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', url, true);
+	xhr.overrideMimeType('text/plain');
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState === 4) {
+			document.getElementById('pre').textContent = xhr.responseText;
+		}
+	};
+	xhr.send();
+};
+</script>
+<style>
+html, body {
+	margin: 0px;
+	padding: 0px;
+}
+header {
+	position: fixed;
+	top: 0px;
+	height: 2rem;
+	width: 100%;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	padding: 0.2rem 1em;
+	line-height: 1.5em;
+	font-family: sans-serif;
+}
+#title {
+	display: inline-block;
+	width: 80%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+#button-close-document {
+	float: right;
+	margin-right: 2em;
+}
+pre {
+	margin: 2.5rem 1em 0em;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+</style>
+</head><body>
+<header><span id="title"></span><span id="button-close-document">X</span></header>
+<pre id="pre"></pre>
+<script src="../connect-iframe.js"></script>
+</body></html>
