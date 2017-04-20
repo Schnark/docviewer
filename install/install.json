@@ -1,0 +1,17 @@
+{
+	"@comment": "Note that the code to transform these data into a webpage is in https://github.com/Schnark/schnark.github.io",
+	"title": {
+		"en": "Reader – App for Firefox OS",
+		"de": "Leser – App für Firefox OS"
+	},
+	"serviceworker": false,
+	"icon": "icon-128.png",
+	"screenshots": [
+		"2017-04-18-17-48-32.png",
+		"2017-04-18-17-48-40.png"
+	],
+	"desc": {
+		"en": ["This app allows you to read documents in different formats: EPUB, PDF, and ODF (ODT, ODS, and ODP)."],
+		"de": ["Diese App ermöglicht es, Dokumente in verschiedenen Formaten zu lesen: EPUB, PDF, und ODF (ODT, ODS, und ODP)."]
+	}
+}
