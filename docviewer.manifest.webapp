@@ -1,13 +1,13 @@
 {
 	"name": "Reader",
 	"description": "Reader for various file types: EPUB, PDF and ODF (ODT, ODS, ODP)",
-	"size": 2290156,
+	"size": 2292844,
 	"package_path": "http://localhost:8080/docviewer.zip",
 	"icons": {
 		"512": "/icon-512.png",
 		"128": "/icon-128.png"
 	},
-	"version": "1.1",
+	"version": "1.2",
 	"developer": {
 		"name": "Michael Müller",
 		"url": "https://github.com/Schnark"
@@ -23,9 +23,18 @@
 					"application/vnd.oasis.opendocument.spreadsheet",
 					"application/vnd.oasis.opendocument.presentation",
 					"text/plain",
-					"text/*",
+					"text/javascript",
+					"application/x-javascript",
+					"text/xml",
+					"text/css",
+					"text/html",
+					"application/x-web-app-manifest+json",
 					""
-				]
+				],
+				"filename": {
+					"pattern": ".*\\.(epub|pdf|odt|ods|odp|txt|js|xml|css|html|webapp)",
+					"regexp": "\\.(epub|pdf|odt|ods|odp|txt|js|xml|css|html|webapp)$"
+				}
 			},
 			"disposition": "window",
 			"returnValue": false,

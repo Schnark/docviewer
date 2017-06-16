@@ -4,7 +4,7 @@
 		"en": "Reader – App for Firefox OS",
 		"de": "Leser – App für Firefox OS"
 	},
-	"serviceworker": false,
+	"serviceworker": true,
 	"icon": "icon-128.png",
 	"screenshots": [
 		"2017-04-18-17-48-32.png",

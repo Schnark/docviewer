@@ -1,3 +1,4 @@
+/*global MozActivity, URL, asyncStorage*/
 (function () {
 "use strict";
 
@@ -42,12 +43,12 @@ function getFile (types, callback) {
 
 var openBlob = (function () {
 	var iframe, container;
-	
+
 	iframe = document.getElementById('iframe');
 	container = document.getElementById('container');
-	
+
 	iframe.style.display = 'none';
-	
+
 	return function openBlob (blob, viewer, buffer) {
 		var url;
 		function messageHandler (e) {
@@ -61,14 +62,14 @@ var openBlob = (function () {
 				container.style.display = 'block';
 			}
 		}
-	
+
 		url = URL.createObjectURL(blob);
 		window.addEventListener('message', messageHandler, false);
 		iframe.src = viewer;
 		container.style.display = 'none';
 		iframe.style.display = 'block';
 	};
-})();
+/**/})();
 
 function openFile (file) {
 	var type = file.name.replace(/.*\./, ''), viewer, buffer;
@@ -81,6 +82,38 @@ function openFile (file) {
 	openBlob(file, viewer, buffer);
 }
 
+function storeFile (file) {
+	asyncStorage.setItem(file.name, file, rebuildFileList);
+}
+
+function removeFromStore (name) {
+	asyncStorage.removeItem(name, rebuildFileList);
+}
+
+function openFromStore (name) {
+	asyncStorage.getItem(name, openFile);
+}
+
+function buildItem (file) {
+	var name = file.name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+	document.getElementsByTagName('ul')[0].innerHTML += '<li><a href="#" data-name="' + name + '">' + name + '</a> ' +
+		'<a href="#" class="remove" data-name="' + name + '">x</a></li>';
+}
+
+function rebuildFileList () {
+	document.getElementsByTagName('ul')[0].innerHTML = '';
+	asyncStorage.length(function (l) {
+		var i;
+		function callback (key) {
+			asyncStorage.getItem(key, buildItem);
+		}
+
+		for (i = 0; i < l; i++) {
+			asyncStorage.key(i, callback);
+		}
+	});
+}
+
 document.getElementsByTagName('button')[0].onclick = function () {
 	var formats = [
 		'application/epub+zip',
@@ -91,7 +124,30 @@ document.getElementsByTagName('button')[0].onclick = function () {
 		'text/*',
 		'*/*' //format is ignored more or less anyway, so just allow everything
 	];
-	getFile(formats, openFile);
+	getFile(formats, function (file) {
+		if (document.getElementsByTagName('input')[0].checked) {
+			storeFile(file);
+		}
+		openFile(file);
+	});
+};
+
+document.getElementsByTagName('ul')[0].onclick = function (e) {
+	var el = e.target, name;
+	while (el && (!el.tagName || (el.tagName !== 'UL' && el.tagName !== 'A'))) {
+		el = el.parentNode;
+	}
+	name = el && el.dataset && el.dataset.name;
+	if (name) {
+		e.preventDefault();
+		if (el.className === 'remove') {
+			if (window.confirm('Remove "' + name + '" from local shelf?')) {
+				removeFromStore(name);
+			}
+		} else {
+			openFromStore(name);
+		}
+	}
 };
 
 if (navigator.mozSetMessageHandler) {
@@ -99,5 +155,7 @@ if (navigator.mozSetMessageHandler) {
 		openFile(request.source.data.blob);
 	});
 }
+
+rebuildFileList();
 
 })();
