@@ -82,6 +82,21 @@ function openFile (file) {
 	openBlob(file, viewer, buffer);
 }
 
+function saveFile (file) {
+	var a = document.createElement('a'),
+		href = URL.createObjectURL(file);
+	a.href = href;
+	if ('download' in a) {
+		a.download = file.name || '';
+	} else {
+		a.target = '_blank';
+	}
+	a.style.display = 'none';
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
+}
+
 function storeFile (file) {
 	asyncStorage.setItem(file.name, file, rebuildFileList);
 }
@@ -94,10 +109,17 @@ function openFromStore (name) {
 	asyncStorage.getItem(name, openFile);
 }
 
+function saveFromStore (name) {
+	asyncStorage.getItem(name, saveFile);
+}
+
 function buildItem (file) {
 	var name = file.name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-	document.getElementsByTagName('ul')[0].innerHTML += '<li><a href="#" data-name="' + name + '">' + name + '</a> ' +
-		'<a href="#" class="remove" data-name="' + name + '">x</a></li>';
+	document.getElementsByTagName('ul')[0].innerHTML += '<li>' + [
+		'<a href="#" data-name="' + name + '">' + name.replace(/.*\//, '') + '</a>',
+		'<a href="#" class="remove" title="Remove from shelf" data-name="' + name + '">x</a>',
+		'<a href="#" class="save" title="Save from shelf" data-name="' + name + '">↓</a>'
+	].join(' ') + '</li>';
 }
 
 function rebuildFileList () {
@@ -134,6 +156,9 @@ document.getElementsByTagName('button')[0].onclick = function () {
 
 document.getElementsByTagName('ul')[0].onclick = function (e) {
 	var el = e.target, name;
+	if (e.button) {
+		return;
+	}
 	while (el && (!el.tagName || (el.tagName !== 'UL' && el.tagName !== 'A'))) {
 		el = el.parentNode;
 	}
@@ -144,6 +169,8 @@ document.getElementsByTagName('ul')[0].onclick = function (e) {
 			if (window.confirm('Remove "' + name + '" from local shelf?')) {
 				removeFromStore(name);
 			}
+		} else if (el.className === 'save') {
+			saveFromStore(name);
 		} else {
 			openFromStore(name);
 		}

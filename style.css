@@ -19,20 +19,34 @@ div {
 	line-height: 3em;
 	margin: 0.5em 0;
 	padding: 0 0 0 1em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 #shelf li a {
 	text-decoration: none;
 	color: black;
 	display: block;
 }
-#shelf li .remove {
+#shelf li .save {
 	position: absolute;
 	right: 0;
 	top: 0;
 	height: 3em;
 	width: 2em;
 	font-weight: bold;
-	background-color: black;
+	background-color: #070;
+	color: white;
+	text-align: center;
+}
+#shelf li .remove {
+	position: absolute;
+	right: 2em;
+	top: 0;
+	height: 3em;
+	width: 2em;
+	font-weight: bold;
+	background-color: #700;
 	color: white;
 	text-align: center;
 }
