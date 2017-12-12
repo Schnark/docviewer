@@ -13,5 +13,9 @@
 	"desc": {
 		"en": ["This app allows you to read documents in different formats: EPUB, PDF, and ODF (ODT, ODS, and ODP)."],
 		"de": ["Diese App ermöglicht es, Dokumente in verschiedenen Formaten zu lesen: EPUB, PDF, und ODF (ODT, ODS, und ODP)."]
+	},
+	"restrictions": {
+		"en": "Note that it can’t open files directly from your file manager.",
+		"de": "Beachte, dass sie keine Dateien direkt aus dem Dateimanager heraus öffnen kann."
 	}
 }

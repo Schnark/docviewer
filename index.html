@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, user-scalable=no">
+<meta name="viewport" content="width=device-width">
 <title>Book Reader</title>
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icons/favicon-32x32.png" sizes="32x32">
@@ -16,7 +16,8 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 }
 </script>
 <link rel="stylesheet" href="style.css">
-<script src="lib/async_storage.js"></script>
+<script src="lib/async_storage.js" defer></script>
+<script src="app.js" defer></script>
 </head><body>
 <div id="container">
 <p>
@@ -24,7 +25,6 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <label><input type="checkbox"> Keep document in local shelf</label>
 </p>
 <ul id="shelf"></ul>
-<p>
 <h2>FAQ</h2>
 <dl>
 <dt>How do I open a document?</dt>
@@ -45,8 +45,6 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 </ul>
 This software is provided 'as-is', without any express or implied warranty.</dd>
 </dl>
-</p>
 </div>
 <iframe id="iframe"></iframe><!--TODO use a sandboxed iframe, but without breaking everything-->
-<script src="app.js"></script>
 </body></html>

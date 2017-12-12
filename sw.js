@@ -9,7 +9,7 @@ importScripts('sw/inflate.js');
 
 zip.useWebWorkers = false;
 
-var VERSION = 'v1.4',
+var VERSION = 'v1.5',
 	FILES = [
 		'sw/zip.js',
 		'sw/ArrayBufferReader.js',
