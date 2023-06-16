@@ -1,9 +1,32 @@
-/*global MozActivity, URL, asyncStorage*/
+/*global MozActivity, URL, File,  asyncStorage*/
 (function () {
 "use strict";
 
+var initialMode, openBlob;
+
+function convertToFile (data) {
+	//Tfe-Drive (and perhaps other apps) send at least in some cases
+	//a Blob instead of the expected File, so the name is missing.
+	//Convert it to a real file, by adding the separate name or
+	//providing a fallback.
+	var EXT = {
+		'application/epub+zip': 'epub',
+		'application/pdf': 'pdf',
+		'application/vnd.oasis.opendocument.text': 'odt',
+		'application/vnd.oasis.opendocument.spreadsheet': 'ods',
+		'application/vnd.oasis.opendocument.presentation': 'odt'
+	}, name, type;
+	if (data.blob.name) {
+		return data.blob;
+	}
+	type = data.blob.type || data.type;
+	name = data.name || data.filename || data.title || ('noname.' + (EXT[type] || 'txt'));
+	return new File([data.blob], name, {type: type});
+}
+
 function getFile (types, callback) {
 	var pick;
+	initialMode = 2;
 	if (window.MozActivity) {
 		pick = new MozActivity({
 			name: 'pick',
@@ -14,7 +37,7 @@ function getFile (types, callback) {
 
 		pick.onsuccess = function () {
 			try {
-				callback(this.result.blob);
+				callback(convertToFile(this.result));
 			} catch (e) {
 				callback();
 			}
@@ -41,7 +64,7 @@ function getFile (types, callback) {
 	}
 }
 
-var openBlob = (function () {
+openBlob = (function () {
 	var iframe, container;
 
 	iframe = document.getElementById('iframe');
@@ -60,6 +83,12 @@ var openBlob = (function () {
 				iframe.src = '';
 				iframe.style.display = 'none';
 				container.style.display = 'block';
+				if (initialMode === 1) {
+					try {
+						window.close();
+					} catch (e) {
+					}
+				}
 			}
 		}
 
@@ -179,7 +208,10 @@ document.getElementsByTagName('ul')[0].onclick = function (e) {
 
 if (navigator.mozSetMessageHandler) {
 	navigator.mozSetMessageHandler('activity', function (request) {
-		openFile(request.source.data.blob);
+		if (!initialMode) {
+			initialMode = 1;
+		}
+		openFile(convertToFile(request.source.data));
 	});
 }
 
