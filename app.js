@@ -2,8 +2,6 @@
 (function () {
 "use strict";
 
-var initialMode, openBlob;
-
 function convertToFile (data) {
 	//Tfe-Drive (and perhaps other apps) send at least in some cases
 	//a Blob instead of the expected File, so the name is missing.
@@ -26,7 +24,6 @@ function convertToFile (data) {
 
 function getFile (types, callback) {
 	var pick;
-	initialMode = 2;
 	if (window.MozActivity) {
 		pick = new MozActivity({
 			name: 'pick',
@@ -64,7 +61,7 @@ function getFile (types, callback) {
 	}
 }
 
-openBlob = (function () {
+var openBlob = (function () {
 	var iframe, container;
 
 	iframe = document.getElementById('iframe');
@@ -83,7 +80,7 @@ openBlob = (function () {
 				iframe.src = '';
 				iframe.style.display = 'none';
 				container.style.display = 'block';
-				if (initialMode === 1) {
+				if (location.search === '?mode=inline') {
 					try {
 						window.close();
 					} catch (e) {
@@ -208,9 +205,6 @@ document.getElementsByTagName('ul')[0].onclick = function (e) {
 
 if (navigator.mozSetMessageHandler) {
 	navigator.mozSetMessageHandler('activity', function (request) {
-		if (!initialMode) {
-			initialMode = 1;
-		}
 		openFile(convertToFile(request.source.data));
 	});
 }

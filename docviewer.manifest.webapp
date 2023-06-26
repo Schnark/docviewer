@@ -1,13 +1,13 @@
 {
 	"name": "Reader",
 	"description": "Reader for various file types: EPUB, PDF and ODF (ODT, ODS, ODP)",
-	"size": 2290602,
+	"size": 2290590,
 	"package_path": "http://localhost:8080/docviewer.zip",
 	"icons": {
 		"512": "/icon-512.png",
 		"128": "/icon-128.png"
 	},
-	"version": "1.6",
+	"version": "1.7",
 	"developer": {
 		"name": "Michael Müller",
 		"url": "https://github.com/Schnark"
@@ -37,9 +37,9 @@
 					"regexp": "\\.(epub|pdf|odt|ods|odp|txt|js|xml|opml|css|html|webapp)$"
 				}
 			},
-			"disposition": "window",
+			"disposition": "inline",
 			"returnValue": false,
-			"href": "/index.html"
+			"href": "/index.html?mode=inline"
 		}
 	},
 	"locales": {
